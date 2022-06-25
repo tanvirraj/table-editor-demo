@@ -1,17 +1,19 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { AppState, newGame } from "./AppState"
+import { AppState, newTableData } from "./AppState"
 import { App } from "./components/App"
 import { Environment, EnvironmentProvider } from "./Environment"
 
 // Build the environment.
-let initialGame = newGame()
+let initialTable = newTableData()
+
 try {
-	const game = JSON.parse(localStorage.getItem("state")!)
-	if (game) initialGame = game
+	const tableData = JSON.parse(localStorage.getItem("state")!)
+	if (tableData) initialTable = tableData
 } catch (error) {}
 
-const app = new AppState(initialGame)
+const app = new AppState(initialTable)
+
 app.addListener(() => {
 	localStorage.setItem("state", JSON.stringify(app.state))
 })
